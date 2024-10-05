@@ -54,14 +54,14 @@ class Scraper:
         if self.browser:
             await self.browser.close()
 
-    async def scroll_down(self, scrolls=3, min_distance=300, max_distance=800):
+    async def scroll_down(self, scrolls=10, min_distance=600, max_distance=1000):
         """Scroll down the page a specified number of times."""
         for _ in range(scrolls):
             scroll_distance = random.randint(min_distance, max_distance)
             await self.page.evaluate(
                 f'window.scrollBy({{top: {scroll_distance}, behavior: "smooth"}});'
             )
-            await self.page.wait_for_timeout(random.randint(3000, 5000))
+            await self.page.wait_for_timeout(random.randint(3000, 4000))
 
 
 # TikTokScraper class for specific TikTok scraping operations
@@ -96,19 +96,22 @@ class TikTokScraper(Scraper):
 
         video_data = []
         for post in posts:
-            video_url = post.find("a").get("href")
-            caption_pattern = re.compile(r"css-.*-SpanText")
-            video_caption = post.find("span", class_=caption_pattern).get_text()
-            author_username = post.find(
-                "a", attrs={"data-e2e": "search-card-user-link"}
-            ).get("href")
-            video_data.append(
-                {
-                    "video_url": video_url,
-                    "video_caption": video_caption,
-                    "author_username": extract_username(author_username),
-                }
-            )
+            try:
+                video_url = post.find("a").get("href")
+                caption_pattern = re.compile(r"css-.*-SpanText")
+                video_caption = post.find("span", class_=caption_pattern).get_text()
+                author_username = post.find(
+                    "a", attrs={"data-e2e": "search-card-user-link"}
+                ).get("href")
+                video_data.append(
+                    {
+                        "video_url": video_url,
+                        "video_caption": video_caption,
+                        "author_username": extract_username(author_username),
+                    }
+                )
+            except Exception as e:
+                print(f"Error during scraping: {e}")
 
         return video_data
 
@@ -132,19 +135,22 @@ class TikTokScraper(Scraper):
 
         video_data = []
         for post in posts:
-            video_url = post.find("a").get("href")
-            caption_pattern = re.compile(r"css-.*-SpanText")
-            video_caption = post.find("span", class_=caption_pattern).get_text()
-            author_username = post.find(
-                "a", attrs={"data-e2e": "challenge-item-avatar"}
-            ).get("href")
-            video_data.append(
-                {
-                    "video_url": video_url,
-                    "video_caption": video_caption,
-                    "author_username": extract_username(author_username),
-                }
-            )
+            try:
+                video_url = post.find("a").get("href")
+                caption_pattern = re.compile(r"css-.*-SpanText")
+                video_caption = post.find("span", class_=caption_pattern).get_text()
+                author_username = post.find(
+                    "a", attrs={"data-e2e": "challenge-item-avatar"}
+                ).get("href")
+                video_data.append(
+                    {
+                        "video_url": video_url,
+                        "video_caption": video_caption,
+                        "author_username": extract_username(author_username),
+                    }
+                )
+            except Exception as e:
+                print(f"Error during scraping: {e}")
 
         return video_data
 
