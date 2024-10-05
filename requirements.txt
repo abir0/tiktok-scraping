@@ -1,0 +1,5 @@
+pandas
+playwright
+python-dotenv
+sqlalchemy
+beautifulsoup4
