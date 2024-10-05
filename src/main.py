@@ -20,9 +20,9 @@ async def main():
     keywords = [
         "beautiful destinations",
         "places to visit",
-        # "places to travel",
-        # "places that don't feel real",
-        # "travel hacks",
+        "places to travel",
+        "places that don't feel real",
+        "travel hacks",
     ]
 
     # Scrape videos for each keyword and save to database
@@ -34,15 +34,15 @@ async def main():
     # List of hashtags to scrape from TikTok
     hashtags = [
         "#traveltok",
-        # "#wanderlust",
-        # "#backpackingadventures",
-        # "#luxurytravel",
-        # "#hiddengems",
-        # "#solotravel",
-        # "#roadtripvibes",
-        # "#travelhacks",
-        # "#foodietravel",
-        # "#sustainabletravel",
+        "#wanderlust",
+        "#backpackingadventures",
+        "#luxurytravel",
+        "#hiddengems",
+        "#solotravel",
+        "#roadtripvibes",
+        "#travelhacks",
+        "#foodietravel",
+        "#sustainabletravel",
     ]
 
     # Scrape videos for each hashtag and save to database
